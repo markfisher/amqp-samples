@@ -13,9 +13,9 @@
 
 	<console:stdout-channel-adapter id="fromRabbit" append-newline="true"/>
 
-	<amqp:outbound-gateway request-channel="toRabbit" reply-channel="fromRabbit" routing-key="echo" amqp-template="amqpTemplate"/>
+	<amqp:outbound-gateway request-channel="toRabbit" reply-channel="fromRabbit" routing-key="echo"/>
 
-	<amqp:inbound-gateway request-channel="echoChannel" queue-name="echo" connection-factory="connectionFactory"/>
+	<amqp:inbound-gateway request-channel="echoChannel" queue-name="echo"/>
 
 	<transformer input-channel="echoChannel" expression="payload.toUpperCase()"/>
 
