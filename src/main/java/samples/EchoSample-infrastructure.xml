@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="echoQueue" class="org.springframework.amqp.core.Queue">
+		<constructor-arg value="echo"/>
+	</bean>
+
+	<bean id="amqpTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+		<property name="connectionFactory" ref="connectionFactory"/>
+	</bean>
+
+	<bean class="org.springframework.amqp.rabbit.core.RabbitAdmin">
+		<constructor-arg ref="connectionFactory"/>
+	</bean>
+
+	<bean id="connectionFactory" class="org.springframework.amqp.rabbit.connection.SingleConnectionFactory">
+		<property name="username" value="guest"/>
+		<property name="password" value="guest"/>
+	</bean>
+
+	<int:poller fixed-delay="1000" max-messages-per-poll="1" default="true"/>
+
+</beans>
